@@ -1,0 +1,82 @@
+.navbar{
+		background-color: #284741;
+		img{
+			padding: 15px;
+		}
+
+}
+.betterWay{
+	margin-top:155px;
+	height: 200px;
+	padding: 30px;
+	color:white;
+	background-color: #8A6D3B;
+}
+.how-it-works{
+	color:black;
+	font-size: 50px;
+	height: 100px;
+	background-color: #E2D0D0;
+	padding-top: 10px;
+}
+.arrow-down {
+	position: absolute;
+    margin-left: 48.5%;
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-top: 50px solid #433022;
+}
+#stepOne{
+	position: relative;
+	color: white;
+	background-image: url('../images/coffee-images/CoffeeBags.jpg');
+	height: 300px;
+	padding: 35px;
+		div{
+			top: 0px;
+		}
+}
+#stepTwo{
+	position: relative;
+	background-color: beige;
+		#grower{
+			height: 100%;
+			padding: 56px;
+
+		}
+		img{
+			width: 100%;
+			height: auto;
+			border: 15px solid #fff;
+	    	transform: rotate(-18deg);
+		}
+		div{
+			top: 0px;
+
+		}
+}
+#stepThree{
+	position: relative;
+	background-color: black;
+	height: 300px;
+	padding: 35px;
+	color: white;
+	background-repeat: no-repeat;
+		.cupImage{
+			height: 100%;
+		}
+
+}
+#get-started{
+	div{
+		top: 0px;
+		position: relative;
+		border-top: 50px solid black;
+	}
+	button{
+		background-color: #3C763D;
+		color: white;
+	}
+}

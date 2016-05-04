@@ -1,0 +1,31 @@
+.container-fluid.options{
+	margin-top: 155px;
+	ul.steps-bar{
+		list-style-type: none;
+		li {
+			float: left;
+
+			p{
+				float: right;
+			}
+		}
+	}
+}
+
+.options-tag{
+	img{
+
+	}
+}
+div.home-img{
+	width: 65px;
+	height: 65px;
+	background-image: url("../images/coffee-images/menu-steps.png");
+}
+.options-bar{
+	padding-top: 50px;
+	h4{
+		color:white;
+	}
+}
+
