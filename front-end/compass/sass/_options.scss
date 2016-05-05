@@ -1,31 +1,35 @@
 .container-fluid.options{
 	margin-top: 155px;
-	ul.steps-bar{
+	ul.step-bar{
 		list-style-type: none;
-		li {
-			float: left;
 
+		li {
+			#home{
+			background-position: 0px 0px;
+			}
+			#options{
+				background-position: 0px -57px;
+			}
+			#delivery{
+				background-position: 0px -117px;
+			}
+			#payment{
+				background-position: 0px -180px;
+			}
+			div{
+					float: left;
+					width: 65px;
+					height: 62px;
+					background-image: url("../css/images/coffee-images/menu-steps.png"); 
+			}
 			p{
 				float: right;
+				margin-top: 10px;
+				margin-top: 25px;
+   				margin-right: 25px;
 			}
 		}
 	}
 }
 
-.options-tag{
-	img{
-
-	}
-}
-div.home-img{
-	width: 65px;
-	height: 65px;
-	background-image: url("../images/coffee-images/menu-steps.png");
-}
-.options-bar{
-	padding-top: 50px;
-	h4{
-		color:white;
-	}
-}
 

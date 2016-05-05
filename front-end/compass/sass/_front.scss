@@ -1,17 +1,3 @@
-.navbar{
-		background-color: #284741;
-		img{
-			padding: 15px;
-		}
-
-}
-.options-bar{
-	div{
-		display: inline-block;
-		border: 1px solid gray;
-		color: white;
-	}
-}
 .betterWay{
 	margin-top:155px;
 	height: 200px;
@@ -27,10 +13,9 @@
 	padding-top: 10px;
 }
 .arrow-down {
-	position: absolute;
     margin-left: 48.5%;
 	width: 0;
-	height: 0;
+	height: 40px;
 	border-left: 25px solid transparent;
 	border-right: 25px solid transparent;
 	border-top: 50px solid #433022;
@@ -38,7 +23,7 @@
 #stepOne{
 	position: relative;
 	color: white;
-	background-image: url('../images/coffee-images/CoffeeBags.jpg');
+	background-image: url('../css/images/coffee-images/CoffeeBags.jpg');
 	height: 300px;
 	padding: 35px;
 		div{
@@ -47,6 +32,7 @@
 }
 #stepTwo{
 	position: relative;
+	height: 300px;
 	background-color: beige;
 		#grower{
 			height: 100%;
@@ -77,10 +63,9 @@
 
 }
 #get-started{
-	div{
-		top: 0px;
-		position: relative;
-		border-top: 50px solid black;
+	div.startedDiv{
+		position: absolute;
+		top:20px;
 	}
 	button{
 		background-color: #3C763D;

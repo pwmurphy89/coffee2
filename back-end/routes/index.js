@@ -6,7 +6,7 @@ mongoose.connect(mongoUrl);
 
 var Account = require('../models/accounts');
 var bcrypt = require('bcrypt-nodejs');
-
+var randToken = require('rand-token');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -25,15 +25,17 @@ router.post('/register', function(req,res,next){
 		if(req.body.password != req.body.password2){
 			res.json({failure:'passwordMatch'});
 		}else{
+				var token = randToken.generate(32);
 				var newAccount = new Account({
 					username: req.body.username,
 					password: bcrypt.hashSync(req.body.password),
-					email: req.body.email
+					email: req.body.email,
+					token: token
 				})
 				newAccount.save();
-				req.session.username = req.body.username;
 				res.json({
-					success: 'added'
+					success: 'added',
+					token: token
 				})
 	}
 });
@@ -58,9 +60,9 @@ router.post('/login', function(req,res,next){
 				res.json({failure:'noUser'});
 			}else{
 				if(passwordsMatch){
-					req.session.username = req.body.username;
 					res.json({
-						success: 'found'
+						success: 'found',
+						token: doc.token
 					});
 				}else{
 					res.json({

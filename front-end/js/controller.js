@@ -1,6 +1,6 @@
-var myApp = angular.module('myApp',['ngRoute']);
+var myApp = angular.module('myApp',['ngRoute', 'ngCookies']);
 
-myApp.controller('myController', function($scope, $http, $location){
+myApp.controller('myController', function($scope, $http, $location, $cookies){
 
 	$scope.registerForm = function(form){
 		if($scope.username==undefined||$scope.password == undefined|| $scope.password2 ==undefined|| $scope.email ==undefined){
@@ -17,6 +17,8 @@ myApp.controller('myController', function($scope, $http, $location){
 					$scope.errorMessage = "Hi " +$scope.username+" ! Looks like your passwords \
 				don't match.  Please try again.";
 				}else if(response.data.success == 'added'){
+					$cookies.put('token', response.data.token);
+					$cookies.put('username', $scope.username);
 					$location.path('/options');
 				}
 			},function errorCallback(response){
@@ -31,6 +33,8 @@ myApp.controller('myController', function($scope, $http, $location){
 			password: $scope.password
 		}).then(function successCallback(response){
 			if(response.data.success == 'found'){
+				$cookies.put('token', response.data.token);
+				$cookies.put('username', $scope.username);
 				$location.path('/options');
 			}else if(response.data.failure == 'nouser'){
 				$scope.errorMessage = 'No such user found';

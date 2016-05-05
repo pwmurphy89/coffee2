@@ -1,5 +1,23 @@
+.navbar{
+		background-color: #284741;
+		img{
+			padding: 15px;
+		}
+	}
+
 img{
 	max-width: 100%;
+}
+.action-bar{
+	padding-top: 50px;
+	h4{
+		color:white;
+	}
+	div{
+		display: inline-block;
+		border: 1px solid gray;
+		color: white;
+	}
 }
 .footer{
 	background-color: gray;
@@ -8,8 +26,4 @@ img{
 		padding: 10px;
 		padding-top: 20px;
 	}
-}
-.registration{
-	margin-top: 200px;
-	margin-bottom: 220px;
 }
