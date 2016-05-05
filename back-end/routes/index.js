@@ -17,23 +17,24 @@ router.get('/register', function(req,res,next){
 });
 
 router.post('/register', function(req,res,next){
-	var username = req.body.username;
-	var password = req.body.password;
-	var password2 = req.body.password2;
-	var email = req.body.email;
+	// var username = req.body.username;
+	// var password = req.body.password;
+	// var password2 = req.body.password2;
+	// var email = req.body.email;
 
-	if(password == password2){
-		var hashedPassword = bcrypt.hashSync(password);
-		var newAccount = new Account({
-			username: username,
-			password: hashedPassword,
-			email: email
-		})
-		newAccount.save();
-		req.session.username = username;
-		res.redirect('/options');
-	}else{
-		res.redirect('/register?failure=password');
+		if(req.body.password != req.body.password2){
+			res.json({failure:'passwordMatch'});
+		}else{
+				var newAccount = new Account({
+					username: req.body.username,
+					password: bcrypt.hashSync(req.body.password),
+					email: req.body.email
+				})
+				newAccount.save();
+				req.session.username = req.body.username;
+				res.json({
+					success: 'added'
+				})
 	}
 });
 
@@ -45,7 +46,7 @@ router.get('/login', function(req,res,next){
 	res.render('login', {page: 'login'});
 });
 
-router.post('/.login', function(req,res,next){
+router.post('/login', function(req,res,next){
 	var username = req.body.username;
 	var password = req.body.password;
 
@@ -53,13 +54,22 @@ router.post('/.login', function(req,res,next){
 		{username: username},
 		function(err, doc){
 			var passwordsMatch = bcrypt.compareSync(password, doc.password);
-			if(passwordsMatch){
-				res.redirect('/options');
+			if(doc == null){
+				res.json({failure:'noUser'});
 			}else{
-				res.redirect('/login');
+				if(passwordsMatch){
+					req.session.username = req.body.username;
+					res.json({
+						success: 'found'
+					});
+				}else{
+					res.json({
+						failure: 'badPassword'
+					});
+				}
 			}
 		}
 	)
-})
+});
 
 module.exports = router;
