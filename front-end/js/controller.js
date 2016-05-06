@@ -27,7 +27,11 @@ myApp.config(function($routeProvider, $locationProvider){
 });
 
 myApp.controller('myController', function($scope, $http, $location, $cookies){
-	
+	 // var Test-Secret-Key = 'sk_test_MJ2Vm8AM8mdJE2D34qyRgjHf';
+	 // var pk-test-key ='pk_test_ts8osad8adqQf9ihzDwGmxrR';
+
+if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path() != '/register')){
+
 	$http.get("http://localhost:3000/getUserData?token=" + $cookies.get('token'),{
 	}).then(function successCallback(response){
 		if(response.data.failure == 'badToken'){
@@ -39,6 +43,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies){
 	}, function errorCallback(response){
 		console.log(response.status);
 	});
+}
 
 	$scope.loginForm = function(){
 		$http.post('http://localhost:3000/login',{
@@ -50,6 +55,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies){
 				$cookies.put('username', $scope.username);
 				$location.path('/options');
 			}else if(response.data.failure == 'noUser'){
+				$location.path('#/register');
 				$scope.errorMessage = 'No such user found';
 			}else if(response.data.failure == 'badPassword'){
 				$scope.errorMessage = "Bad password";

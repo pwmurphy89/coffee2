@@ -5,17 +5,18 @@ var Account = new Schema({
 	password: String,
 	email: String,
 	token: String,
-	frequency: String,
-	quantity: String,
+	plan: String,
 	grind: String,
+	quantity: String,
+	frequency: String,
 	fullName: String,
 	address: String,
 	address2: String,
 	city: String,
 	state: String,
 	zip: Number,
-	deliveryDate: String,
-	plan: String
+	deliveryDate: String
+	
 });
 
 module.exports = mongoose.model('Account', Account);
