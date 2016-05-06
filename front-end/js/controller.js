@@ -32,7 +32,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies){
 
 if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path() != '/register')){
 
-	$http.get("http://127.0.0.1:3000/getUserData?token=" + $cookies.get('token'),{
+	$http.get("http://www.pwmurphy.com/getUserData?token=" + $cookies.get('token'),{
 	}).then(function successCallback(response){
 		if(response.data.failure == 'badToken'){
 			//User needs to login
@@ -46,7 +46,7 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 }
 
 	$scope.loginForm = function(){
-		$http.post('http://127.0.0.1:3000/login',{
+		$http.post('http://www.pwmurphy.com/login',{
 			username: $scope.username,
 			password: $scope.password
 		}).then(function successCallback(response){
@@ -69,7 +69,7 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 		if($scope.username==undefined||$scope.password == undefined|| $scope.password2 ==undefined|| $scope.email ==undefined){
 			$scope.errorMessage = "Hi! Please make sure to fill out all the inputs.";
 		}else{
-			$http.post('http://127.0.0.1:3000/register', {
+			$http.post('http://www.pwmurphy.com/register', {
 				username: $scope.username,
 				password: $scope.password,
 				password2: $scope.password2,
@@ -91,7 +91,7 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 	};
 
 	$scope.optionsForm = function(planType){
-		$http.post("http://127.0.0.1:3000/options", {
+		$http.post("http://www.pwmurphy.com/options", {
 			token: $cookies.get('token'),
 			plan: planType,
 			grind: $scope.grind,
@@ -110,7 +110,7 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 	};
 
 	$scope.deliveryForm = function(){
-		$http.post('http://127.0.0.1:3000/delivery', {
+		$http.post('http://www.pwmurphy.com/delivery', {
 			token: $cookies.get('token'),
 			fullName: $scope.fullName,
 			address: $scope.address,
@@ -134,7 +134,7 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 
 myApp.controller('checkoutController', function($scope, $http, $location, $cookies){
 	
-	$http.get("http://127.0.0.1:3000/getUserData?token=" + $cookies.get('token'),{
+	$http.get("http://www.pwmurphy.com/getUserData?token=" + $cookies.get('token'),{
 		}).then(function successCallback(response){
 			if(response.data.failure == 'noToken'){
 				$location.path('/login');
