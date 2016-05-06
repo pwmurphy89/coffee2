@@ -1,8 +1,7 @@
-.container-fluid.options{
+#options-wrapper{
 	margin-top: 155px;
-	ul.step-bar{
+	#step-bar{
 		list-style-type: none;
-
 		li {
 			#home{
 			background-position: 0px 0px;
@@ -30,6 +29,9 @@
 			}
 		}
 	}
+}
+#customOrderForm {
+	border: 1px solid gray;
 }
 
 
