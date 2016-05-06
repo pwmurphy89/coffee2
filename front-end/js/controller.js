@@ -55,8 +55,8 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 				$cookies.put('username', $scope.username);
 				$location.path('/options');
 			}else if(response.data.failure == 'noUser'){
-				$location.path('#/register');
-				$scope.errorMessage = 'No such user found';
+				$location.path('/register');
+				// $scope.errorMessage = 'No such user found';
 			}else if(response.data.failure == 'badPassword'){
 				$scope.errorMessage = "Bad password";
 			}
