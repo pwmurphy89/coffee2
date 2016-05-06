@@ -17,27 +17,27 @@
 <body ng-controller="myController">
 	<div class="navbar navbar-default navbar-fixed-top">
 		<div class="container col-sm-12">
-			<div class="col-sm-9 text-left">
-				<a ng-href='/'>
+			<div class="col-sm-8 text-left">
+				<a ng-href='#/'>
 					<img src='../css/images/dc_roasters.png'>
 				</a>
 			</div>
 
-			<div class="col-sm-3 text-right action-bar">
-				<div class="col-sm-6 text-center">
-					<a ng-href="#/login">Login</a>
+			<div id="action-bar" class="col-sm-4 text-right">
+				<div class="col-sm-3 text-center">
+					<a ng-href="#/login"><h4>Login</h4></a>
 				</div>
-				<div class="col-sm-6 text-center">
-					<a ng-href='#/register'>Register</a>
+				<div class="col-sm-4 col-sm-offset-1 text-center">
+					<a ng-href='#/register'><h4>Register</h4></a>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div ng-view></div>
+	<div id="view" ng-view></div>
 	
-	<div class="footer text-center">
-		<a ng-href='/'>
+	<div id="footer" class="footer text-center">
+		<a ng-href='#/'>
 			<img src='css/images/dc_roasters.png'>
 			<p> &copy 2015 DigitalCrafts BrewHouse</p>
 		</a>

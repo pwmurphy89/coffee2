@@ -1,7 +1,15 @@
 #options-wrapper{
-	margin-top: 155px;
+	margin-top: 150px;
+	background-color: beige;
+	.row.one{
+		background-color: gray;
+		height: 65px;
+	}
 	#step-bar{
 		list-style-type: none;
+		a{
+			color:white;
+		}
 		li {
 			#home{
 			background-position: 0px 0px;
@@ -12,17 +20,19 @@
 			#delivery{
 				background-position: 0px -117px;
 			}
-			#payment{
+			#checkout{
 				background-position: 0px -180px;
 			}
 			div{
+					color: white;
 					float: left;
 					width: 65px;
 					height: 62px;
 					background-image: url("../css/images/coffee-images/menu-steps.png"); 
 			}
-			p{
-				float: right;
+			h4{
+				color: white;
+				float: left;
 				margin-top: 10px;
 				margin-top: 25px;
    				margin-right: 25px;
@@ -30,8 +40,27 @@
 		}
 	}
 }
-#customOrderForm {
-	border: 1px solid gray;
+#individual-plan{
+	background-color: white;
+	border: 1px solid black;
+}
+#family-plan {
+	background-color: white;
+	border: 1px solid black;
+}
+#customOrderForm{
+	background-color: white;
+	border: 1px solid black;
+	.type{
+		margin-bottom: 30px;
+		border: 1px solid gray;
+	}
+	img{
+		width: 35%;
+	}
+}
+#custom-header{
+	padding-top: 25px;
 }
 
 

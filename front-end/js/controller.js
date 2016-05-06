@@ -23,6 +23,9 @@ myApp.config(function($routeProvider, $locationProvider){
 	}).when('/cancel', {
 		templateUrl: 'views/cancel.html',
 		controller: 'checkoutController'
+	}).when('/about', {
+		templateUrl: 'views/about.html',
+		controller: 'myController'
 	})
 });
 
