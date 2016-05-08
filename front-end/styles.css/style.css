@@ -256,6 +256,10 @@ img {
 #cancel-form-wrapper {
   margin-top: 155px;
 }
+/* line 3, ../compass/sass/_cancel.scss */
+#cancel-form-wrapper .row {
+  height: 500px;
+}
 
 /* line 1, ../compass/sass/_delivery.scss */
 #delivery-form-wrapper {
@@ -280,4 +284,12 @@ img {
 .checkoutForm {
   background-color: white;
   border: 1px solid black;
+}
+/* line 4, ../compass/sass/_checkout.scss */
+.checkoutForm h5 {
+  text-decoration: underline;
+}
+/* line 8, ../compass/sass/_checkout.scss */
+.checkoutForm h4 {
+  text-indent: 20px;
 }

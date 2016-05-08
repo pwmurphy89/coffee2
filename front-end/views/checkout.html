@@ -32,50 +32,32 @@
 		<h4>Please confirm order summary below</h4>
 	</div>
 	<div class="row col-sm-8 col-sm-offset-2 checkoutForm">
-		<h2>Choices</h2>
+		
 		<div class="col-sm-5">
-			<h5>Plan:</h5>
-			<h5>Grind:</h5>
-			<h5>Frequency of Delivery:</h5>
-			<h5>Coffee in pounds:</h5>
-			<h5>Date:</h5>
-		</div>
-		<div class="col-sm-5">
-			<h5>{{planType}}</h5>
-			<h5>{{grind}}</h5>
-			<h5>{{frequency}}</h5>
-			<h5>{{quantity}}</h5>
-			<h5>{{date}}</h5>
+			<h2>Choices</h2>
+			<h5>Plan: </h5> <h4>{{planType}}</h4>
+			<h5>Grind: </h5> <h4>{{grind}}</h4>
+			<h5>Frequency:</h5> <h4> {{frequency}}</h4>
+			<h5>Quantity: </h5> <h4>{{quantity}}</h4>
+			<h5>Date: </h5> <h4>{{date}}</h4>
 		</div>
 	</div>
 	<div class="row col-sm-8 col-sm-offset-2 checkoutForm">
 		<h2>Delivery Information</h2>
 		<div class="col-sm-5">
-			<h5>Full Name:</h5>
-			<h5>Address:</h5>
-			<h5>Address2:</h5>
-			<h5>City:</h5>
-			<h5>State:</h5>
-			<h5>Zip Code:</h5>
-		</div>
-		<div class="col-sm-5">
-			<h5>{{fullName}}</h5>
-			<h5>{{address}}</h5>
-			<h5>{{address2}}</h5>
-			<h5>{{city}}</h5>
-			<h5>{{state}}</h5>
-			<h5>{{zip}}</h5>
+			<h5>Full Name: </h5><h4>{{fullName}}</h4>
+			<h5>Address: </h5> <h4> {{address}}</h4>
+			<h5>Address2: </h5><h4>{{address2}}</h4>
+			<h5>City: </h5> <h4>{{city}}</h4>
+			<h5>State: </h5><h4>{{state}}</h4>
+			<h5>Zip Code: </h5><h4>{{zip}}</h4>
 		</div>
 	</div>
 	<div class="row col-sm-8 col-sm-offset-2 checkoutForm">
 		<h2>Current Charge</h2>
 			<div class="col-sm-5">
-				<h5>Shipping:</h5>
-				<h4><em>Total:</em></h4>
-			</div>
-			<div class="col-sm-5">
-				<h5>{{shippingTotal}}</h5>
-				<h4><em>{{totalCharge}}</em></h4>
+				<h5>Shipping Cost: </h5><h4>$0.00</h4>
+				<h5><em>Total Charge:</em></h5><h4><em> {{totalCharge}}</em></h4>
 			</div>
 	</div>
 	<div class="row col-sm-12 text-center">
@@ -88,7 +70,7 @@
 			<form ng-submit="paymentForm()">
 				<button class="btn btn-success" type="submit">Pay with card</button>
 			</form>
-			<form action="" method="POST">
+			<!-- <form action="" method="POST">
 			  <script
 			    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			    data-key="pk_test_K9L17worNm0z7lHpdssTpwqr"
@@ -98,7 +80,7 @@
 			    data-image="/images/brand.png"
 			    data-locale="auto">
 			  </script>
-			</form>
+			</form> -->
 		</div>
 	</div>
 </div>

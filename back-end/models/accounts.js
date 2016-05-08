@@ -9,6 +9,7 @@ var Account = new Schema({
 	grind: String,
 	quantity: String,
 	frequency: String,
+	totalCharge: String,
 	fullName: String,
 	address: String,
 	address2: String,
@@ -16,7 +17,6 @@ var Account = new Schema({
 	state: String,
 	zip: Number,
 	deliveryDate: String
-	
 });
 
 module.exports = mongoose.model('Account', Account);

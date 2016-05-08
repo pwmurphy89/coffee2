@@ -33,6 +33,7 @@
 				<div class="row text-center">
 					<h2>Please enter your shipping info</h2>
 					<h5>We treat your coffee like gold. It will be shipped safely.</h5>
+					<h2>{{infoMessage}}</h2>
 				</div>
 				<div id="delivery-form-wrapper" class="row col-sm-8 col-sm-offset-2">
 					<div id="top-row" class="form-group">
@@ -115,7 +116,9 @@
 					</div>
 					<div class="form-group col-sm-3">
 						<label>Delivery Date</label>
-						<input type="text" class="form-control" ng-model="date">
+						<form>
+    						<input type="text" class="form-control"ng-model="deliveryDate"id="datepicker">
+    					</form>
 					</div>
 					<div class="col-sm-3 text-center">
 						<button type="submit" class="btn btn-default">Submit</button>
@@ -126,8 +129,3 @@
 	</div>
 </div>
 
-<script>
-$(document).ready(function(){
-	$("#datepicker").datepicker();
-});
-</script>

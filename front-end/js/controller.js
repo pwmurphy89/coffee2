@@ -29,24 +29,19 @@ myApp.config(function($routeProvider, $locationProvider){
 	})
 });
 
-myApp.controller('myController', function($scope, $http, $location, $cookies){
-	 // var Test-Secret-Key = 'sk_test_MJ2Vm8AM8mdJE2D34qyRgjHf';
-	 // var pk-test-key ='pk_test_ts8osad8adqQf9ihzDwGmxrR';
-
-if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path() != '/register')){
-
-	$http.get("http://localhost:3000/getUserData?token=" + $cookies.get('token'),{
-	}).then(function successCallback(response){
-		if(response.data.failure == 'badToken'){
-			//User needs to login
-			$location.path('/login');
-		}else{
-			$scope.userOptions = response.data;
-		}
-	}, function errorCallback(response){
-		console.log(response.status);
-	});
-}
+myApp.controller('myController', function($scope, $http, $location, $cookies, $sce){
+	if(($location.path() != '/') && ($location.path() != '/login') && ($location.path() != '/register')){
+		$http.get("http://localhost:3000/getUserData?token=" + $cookies.get('token'),{
+		}).then(function successCallback(response){
+			if(response.data.failure == 'badToken'){
+				$location.path('/login');
+			}else{
+				var userOptions = response.data;
+			}
+		}, function errorCallback(response){
+			console.log(response.status);
+		});
+	}
 
 	$scope.loginForm = function(){
 		$http.post('http://localhost:3000/login',{
@@ -94,12 +89,29 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 	};
 
 	$scope.optionsForm = function(planType){
+		var frequency;
+		var quantity;
+		var totalCharge;
+		if(planType == 'Individual'){
+			frequency = 'Weekly';
+			quantity = '14 cups';
+			totalCharge = '$7.00';
+		}else if(planType == 'Family'){
+			frequency = 'Weekly';
+			quantity = '40 cups';
+			totalCharge = '$18.00';
+		}else{
+			frequency = $scope.frequency;
+			quantity = $scope.quantity + 'lbs';
+			totalCharge = '$' + (Number($scope.quantity) * 5) + '.00';
+		}
 		$http.post("http://localhost:3000/options", {
 			token: $cookies.get('token'),
 			plan: planType,
 			grind: $scope.grind,
-			quantity: $scope.quantity,
-			frequency: $scope.frequency
+			quantity: quantity,
+			frequency: frequency,
+			totalCharge: totalCharge
 		}).then(function successCallback(response){
 			if(response.data.success == 'update'){
 				$location.path('/delivery');
@@ -113,30 +125,39 @@ if(($location.path() != '/') && ($location.path() != '/login')&& ($location.path
 	};
 
 	$scope.deliveryForm = function(){
-		$http.post('http://localhost:3000/delivery', {
-			token: $cookies.get('token'),
-			fullName: $scope.fullName,
-			address: $scope.address,
-			address2: $scope.address2,
-			city: $scope.city,
-			state: $scope.state,
-			zip: $scope.zip,
-			deliveryDate: $scope.deliveryDate
-		}).then(function successCallback(response){
-			if(response.data.failure == 'nomatch'){
-				$location.path('/login');
-			}else if(response.data.success == 'update'){
-				$location.path('/checkout');
-			}
-			},function errorCallback(response){
-				console.log("Error");
+		if($scope.fullName == undefined || $scope.address == undefined || $scope.city == undefined || $scope.state == undefined || $scope.zip == undefined){
+			$scope.infoMessage = "Please make sure to fill out all fields";
+		}else{
+			$http.post('http://localhost:3000/delivery', {
+				token: $cookies.get('token'),
+				fullName: $scope.fullName,
+				address: $scope.address,
+				address2: $scope.address2,
+				city: $scope.city,
+				state: $scope.state,
+				zip: $scope.zip,
+				deliveryDate: $scope.deliveryDate
+			}).then(function successCallback(response){
+				if(response.data.failure == 'nomatch'){
+					$location.path('/login');
+				}else if(response.data.success == 'update'){
+					$location.path('/checkout');
+
 				}
-			)
+				},function errorCallback(response){
+					$location.path('/login');
+					console.log("Error");
+					}
+				)
+		}
 	};
+
+		$(document).ready(function(){
+			$("#datepicker").datepicker();
+		});
 });
 
 myApp.controller('checkoutController', function($scope, $http, $location, $cookies){
-	
 	$http.get("http://localhost:3000/getUserData?token=" + $cookies.get('token'),{
 		}).then(function successCallback(response){
 			if(response.data.failure == 'noToken'){
@@ -144,21 +165,23 @@ myApp.controller('checkoutController', function($scope, $http, $location, $cooki
 			}else if(response.data.failure =='badToken'){
 				$location.path('/login');
 			}else{
-				var userOptions = response.data;
-				$scope.fullName = userOptions.fullName;
-				$scope.address = userOptions.address;
-				$scope.address2 = userOptions.address2;
-				$scope.city = userOptions.city;
-				$scope.state = userOptions.state;
-				$scope.zip = userOptions.zip;
-				$scope.deliveryDate = userOptions.deliveryDate;
-				$scope.planType = userOptions.plan;
-				$scope.grind = userOptions.grind;
-				$scope.quantity = userOptions.quantity;
-				$scope.frequency = userOptions.frequency;
+					var userOptions = response.data;
+					$scope.fullName = userOptions.fullName;
+					$scope.address = userOptions.address;
+					$scope.address2 = userOptions.address2;
+					$scope.city = userOptions.city;
+					$scope.state = userOptions.state;
+					$scope.zip = userOptions.zip;
+					$scope.deliveryDate = userOptions.deliveryDate;
+					$scope.planType = userOptions.plan;
+					$scope.grind = userOptions.grind;
+					$scope.quantity = userOptions.quantity;
+					$scope.frequency = userOptions.frequency;
+					$scope.totalCharge = userOptions.totalCharge;
 			}
 			}, function errorCallback(response){
-			console.log("ERROR");
+				$location.path('/login');
+				console.log("ERROR");
 			}
 		);
 

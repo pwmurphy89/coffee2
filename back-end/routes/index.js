@@ -104,6 +104,7 @@ router.post('/options',function(req,res,next){
 		grind: req.body.grind,
 		quantity: req.body.quantity,
 		frequency: req.body.frequency,
+		totalCharge: req.body.totalCharge,
 		upsert: true
 		},
 		function(err, account){
