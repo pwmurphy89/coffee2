@@ -17,13 +17,18 @@ img{
 	h4{
 		color: white;
 	}
-	div{
+	#username{
+	height: 40px;
+	display: inline-block;
+	color: white;
+	background-color: none;
+	}
+	.info{
 		height: 40px;
 		display: inline-block;
 		color: white;
 		background-color: gray;
 		border-radius: 2px;
-
 	}
 }
 .footer{

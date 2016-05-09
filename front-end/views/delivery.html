@@ -114,15 +114,32 @@
 						 <label>Zip Code</label>
 						  <input type="text" class="form-control" ng-model="zip" placeholder="Zip Code">
 					</div>
+					<form ng-submit="deliveryForm();">
 					<div class="form-group col-sm-3">
 						<label>Delivery Date</label>
-						<form>
-    						<input type="text" class="form-control"ng-model="deliveryDate"id="datepicker">
-    					</form>
+    						<input ng-model="parent.deliveryDate" ng-value="" name="deliveryDate" type="text" class="form-control" id="datepicker">
 					</div>
+					</form>
 					<div class="col-sm-3 text-center">
 						<button type="submit" class="btn btn-default">Submit</button>
 					</div>
+<!-- =======
+							<div class="form-group text-left">
+						<div class="control-group">
+					        <label for="date-picker-2" class="control-label">Delivery Date</label>
+						    <div id="dateRangePicker" class="controls">
+						        <div class="input-group">
+						            <input id="date-picker-2" type="text" class="date-picker form-control" ng-model="deliveryDate" value="">
+						            <label id="date-picker-2-label" for="date-picker-2" class="input-group-addon btn"><span id="date-picker-2-span"class="glyphicon glyphicon-calendar"></span>
+​
+					        		</label>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
+=========== -->
+
 				</div>
 			</div>
 		</form>

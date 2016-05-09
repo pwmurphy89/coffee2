@@ -31,32 +31,67 @@ myApp.config(function($routeProvider, $locationProvider){
 
 myApp.controller('myController', function($scope, $http, $location, $cookies, $sce){
 	if(($location.path() != '/') && ($location.path() != '/login') && ($location.path() != '/register')){
-		$http.get("http://localhost:3000/getUserData?token=" + $cookies.get('token'),{
+		$http.get("http://localhost:3000/getUserData?username=" + $cookies.get('username') + "&expireTime=" + $cookies.get('expireTime'),{
 		}).then(function successCallback(response){
-			if(response.data.failure == 'badToken'){
+			if(response.data.failure == 'noUser' || response.data.failure == 'badUser'){
 				$location.path('/login');
+			}else if (response.data.failure == 'tokenExpired'){
+				timeExpired();
 			}else{
+				console.log("ok");
 				var userOptions = response.data;
+				$scope.username = userOptions.username;
 			}
 		}, function errorCallback(response){
 			console.log(response.status);
 		});
 	}
 
+	 var timeExpired = function(){
+		 	$cookies.remove('token');
+	        $cookies.remove('username');
+	        $cookies.remove('expireTime');
+	        $location.path('/');
+		 }
+
+	$scope.$watch(function() { 
+	       return $location.path(); 
+	   },
+	   function(param){
+         if(param == '/' || param == '/login' || param == '/register'){
+           $scope.loggedOut = true;
+           $scope.loggedIn = false;
+         }else{
+         	$scope.loggedOut = false;
+         	$scope.loggedIn = true;
+         }
+     });
+
+	 $scope.logOut = function(){
+		$cookies.remove('token');
+        $cookies.remove('username');
+        $cookies.remove('expireTime');
+        $location.path('/');
+	 }
+
 	$scope.loginForm = function(){
 		$http.post('http://localhost:3000/login',{
 			username: $scope.username,
 			password: $scope.password
 		}).then(function successCallback(response){
+
 			if(response.data.success == 'found'){
+					console.log("cameback");
+					console.log(response.data.token);
 				$cookies.put('token', response.data.token);
 				$cookies.put('username', $scope.username);
+				$cookies.put('expireTime', response.data.expireTime);
 				$location.path('/options');
 			}else if(response.data.failure == 'noUser'){
 				$location.path('/register');
 				// $scope.errorMessage = 'No such user found';
 			}else if(response.data.failure == 'badPassword'){
-				$scope.errorMessage = "Bad password";
+				$scope.errorMessage = "Please re-type your password.";
 			}
 		},function errorCallback(response){
 			console.log('error');
@@ -73,13 +108,13 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 				password2: $scope.password2,
 				email: $scope.email
 			}).then(function successCallback(response){
-				console.log(response.data);
 				if(response.data.failure == 'passwordMatch'){
 					$scope.errorMessage = "Hi " +$scope.username+" ! Looks like your passwords \
 				don't match.  Please try again.";
 				}else if(response.data.success == 'added'){
 					$cookies.put('token', response.data.token);
 					$cookies.put('username', $scope.username);
+					$cookies.put('expireTime', response.data.expireTime);
 					$location.path('/options');
 				}
 			},function errorCallback(response){
@@ -92,6 +127,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 		var frequency;
 		var quantity;
 		var totalCharge;
+		var thisToken = $cookies.get('token')
 		if(planType == 'Individual'){
 			frequency = 'Weekly';
 			quantity = '14 cups';
@@ -125,6 +161,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 	};
 
 	$scope.deliveryForm = function(){
+		console.log(typeof($scope.deliveryDate));
 		if($scope.fullName == undefined || $scope.address == undefined || $scope.city == undefined || $scope.state == undefined || $scope.zip == undefined){
 			$scope.infoMessage = "Please make sure to fill out all fields";
 		}else{
@@ -153,17 +190,24 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 	};
 
 		$(document).ready(function(){
-			$("#datepicker").datepicker();
+			$("#datepicker").datepicker().on('changeDate', function (ev) {
+       			 $scope.deliveryDate= $('#datepicker').val();
+
+       			 $scope.$watch('deliveryDate', function (newValue, oldValue) {
+            	 $scope.deliveryDate= newValue;
+        		});
+  			});
 		});
 });
 
 myApp.controller('checkoutController', function($scope, $http, $location, $cookies){
-	$http.get("http://localhost:3000/getUserData?token=" + $cookies.get('token'),{
+	$http.get("http://localhost:3000/getUserData?username=" + $cookies.get('username') + "&expireTime=" +$cookies.get('expireTime'),{
 		}).then(function successCallback(response){
-			if(response.data.failure == 'noToken'){
+			if(response.data.failure == 'noUser' || response.data.failure == 'badUser'){
 				$location.path('/login');
-			}else if(response.data.failure =='badToken'){
-				$location.path('/login');
+			}else if (response.data.failure == 'tokenExpired'){
+				console.log('time expired');
+				timeExpired();
 			}else{
 					var userOptions = response.data;
 					$scope.fullName = userOptions.fullName;
@@ -185,6 +229,26 @@ myApp.controller('checkoutController', function($scope, $http, $location, $cooki
 			}
 		);
 
+	 var timeExpired = function(){
+	 	$cookies.remove('token');
+	    $cookies.remove('username');
+	    $cookies.remove('expireTime');
+	    $location.path('/');
+ 	}
+
+	$scope.$watch(function() { 
+	       return $location.path(); 
+	   },
+	   function(param){
+         if(param == '/' || param == '/login' || param == '/register'){
+           $scope.loggedOut = true;
+           $scope.loggedIn = false;
+         }else{
+         	$scope.loggedOut = false;
+         	$scope.loggedIn = true;
+         }
+     });
+
 	$scope.paymentForm = function(){
 		console.log("PAY");
 	}
@@ -193,6 +257,17 @@ myApp.controller('checkoutController', function($scope, $http, $location, $cooki
 		console.log("CANCEL");
 		$location.path('/cancel');
 	}
+
+	$(document).ready(function(){
+		$("#datepicker").datepicker().on('changeDate', function (ev) {
+			$scope.deliveryDate= $('#datepicker').val();
+
+			$scope.$watch('deliveryDate', function (newValue, oldValue) {
+	    		$scope.deliveryDate= newValue;
+			});
+		});
+	});
+
 });
 
 

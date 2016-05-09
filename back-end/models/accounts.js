@@ -5,6 +5,7 @@ var Account = new Schema({
 	password: String,
 	email: String,
 	token: String,
+	expireTime: Number,
 	plan: String,
 	grind: String,
 	quantity: String,

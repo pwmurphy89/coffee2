@@ -26,7 +26,14 @@ img {
   color: white;
 }
 /* line 20, ../compass/sass/_nav-foot.scss */
-#action-bar div {
+#action-bar #username {
+  height: 40px;
+  display: inline-block;
+  color: white;
+  background-color: none;
+}
+/* line 26, ../compass/sass/_nav-foot.scss */
+#action-bar .info {
   height: 40px;
   display: inline-block;
   color: white;
@@ -34,13 +41,13 @@ img {
   border-radius: 2px;
 }
 
-/* line 29, ../compass/sass/_nav-foot.scss */
+/* line 34, ../compass/sass/_nav-foot.scss */
 .footer {
   background-color: gray;
   height: 150px;
   width: 100%;
 }
-/* line 33, ../compass/sass/_nav-foot.scss */
+/* line 38, ../compass/sass/_nav-foot.scss */
 .footer img {
   padding: 25px 0 5px 0;
   height: 80%;
