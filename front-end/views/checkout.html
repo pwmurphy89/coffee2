@@ -72,6 +72,7 @@
 			</form>
 			<!-- <form action="" method="POST">
 			  <script
+			  Stripe.setPublishableKey('pk_test_ts8osad8adqQf9ihzDwGmxrR');
 			    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			    data-key="pk_test_K9L17worNm0z7lHpdssTpwqr"
 			    data-amount="999"
@@ -81,6 +82,32 @@
 			    data-locale="auto">
 			  </script>
 			</form> -->
+
+<!-- 
+			var handler = StripeCheckout.configure({
+    key: 'pk_test_rWLa6iTLc7PEWPlIsrkXjHyN',
+    image: '/img/documentation/checkout/marketplace.png',
+    locale: 'auto',
+    token: function(token) {
+      // You can access the token ID with `token.id`.
+      // Get the token ID to your server-side code for use.
+    }
+  });
+​
+  $('#checkout-button').on('click', function(e) {
+    // Open Checkout with further options:
+    handler.open({
+      name: 'DC Roasters',
+      description: '2 widgets',
+      amount: {{total}}
+    });
+    e.preventDefault();
+  });
+​
+  // Close Checkout on page navigation:
+  $(window).on('popstate', function() {
+    handler.close();
+  }); -->
 		</div>
 	</div>
 </div>
