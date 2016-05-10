@@ -8,6 +8,11 @@ var Account = require('../models/accounts');
 var bcrypt = require('bcrypt-nodejs');
 var randToken = require('rand-token');
 /* GET home page. */
+
+var stripe = require("stripe")(
+  "sk_test_MJ2Vm8AM8mdJE2D34qyRgjHf"
+);
+
 router.get('/getUserData', function(req,res,next){
 	if(req.query.username == undefined){
 		res.json({'failure': 'badUser'});
@@ -161,5 +166,18 @@ router.post('/delivery',function(req,res,next){
 	)
 });
 
+
+router.post('/checkout',function(req,res,next){
+	stripe.charges.create({
+	  amount: req.body.amount,
+	  currency: "usd",
+	  source: req.body.stripeToken, // obtained with Stripe.js
+	  description: "Charge for test@example.com"
+	}, function(err, charge) {
+		res.json({success: 'paid'});
+	  console.log("we received the charge");
+	});
+
+});
 module.exports = router;
 

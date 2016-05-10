@@ -10,7 +10,7 @@ var Account = new Schema({
 	grind: String,
 	quantity: String,
 	frequency: String,
-	totalCharge: String,
+	totalCharge: Number,
 	fullName: String,
 	address: String,
 	address2: String,

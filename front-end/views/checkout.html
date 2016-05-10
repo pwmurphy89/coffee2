@@ -57,7 +57,7 @@
 		<h2>Current Charge</h2>
 			<div class="col-sm-5">
 				<h5>Shipping Cost: </h5><h4>$0.00</h4>
-				<h5><em>Total Charge:</em></h5><h4><em> {{totalCharge}}</em></h4>
+				<h5><em>Total Charge:</em></h5><h4><em>${{totalCharge}}.00</em></h4>
 			</div>
 	</div>
 	<div class="row col-sm-12 text-center">
@@ -70,44 +70,6 @@
 			<form ng-submit="paymentForm()">
 				<button class="btn btn-success" type="submit">Pay with card</button>
 			</form>
-			<!-- <form action="" method="POST">
-			  <script
-			  Stripe.setPublishableKey('pk_test_ts8osad8adqQf9ihzDwGmxrR');
-			    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-			    data-key="pk_test_K9L17worNm0z7lHpdssTpwqr"
-			    data-amount="999"
-			    data-name="DC Roasters"
-			    data-description="Coffee Order"
-			    data-image="/images/brand.png"
-			    data-locale="auto">
-			  </script>
-			</form> -->
-
-<!-- 
-			var handler = StripeCheckout.configure({
-    key: 'pk_test_rWLa6iTLc7PEWPlIsrkXjHyN',
-    image: '/img/documentation/checkout/marketplace.png',
-    locale: 'auto',
-    token: function(token) {
-      // You can access the token ID with `token.id`.
-      // Get the token ID to your server-side code for use.
-    }
-  });
-​
-  $('#checkout-button').on('click', function(e) {
-    // Open Checkout with further options:
-    handler.open({
-      name: 'DC Roasters',
-      description: '2 widgets',
-      amount: {{total}}
-    });
-    e.preventDefault();
-  });
-​
-  // Close Checkout on page navigation:
-  $(window).on('popstate', function() {
-    handler.close();
-  }); -->
 		</div>
 	</div>
 </div>

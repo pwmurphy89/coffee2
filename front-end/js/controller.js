@@ -26,6 +26,9 @@ myApp.config(function($routeProvider, $locationProvider){
 	}).when('/about', {
 		templateUrl: 'views/about.html',
 		controller: 'myController'
+	}).when('/thankyou', {
+		templateUrl: 'views/thankyou.html',
+		controller: 'checkoutController'
 	})
 });
 
@@ -64,6 +67,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
          }else{
          	$scope.loggedOut = false;
          	$scope.loggedIn = true;
+         	$scope.username = $cookies.get('username');
          }
      });
 
@@ -131,15 +135,15 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 		if(planType == 'Individual'){
 			frequency = 'Weekly';
 			quantity = '14 cups';
-			totalCharge = '$7.00';
+			totalCharge = 7;
 		}else if(planType == 'Family'){
 			frequency = 'Weekly';
 			quantity = '40 cups';
-			totalCharge = '$18.00';
+			totalCharge = 18;
 		}else{
 			frequency = $scope.frequency;
 			quantity = $scope.quantity + 'lbs';
-			totalCharge = '$' + (Number($scope.quantity) * 5) + '.00';
+			totalCharge = (Number($scope.quantity) * 5) + '.00';
 		}
 		$http.post("http://localhost:3000/options", {
 			token: $cookies.get('token'),
@@ -244,14 +248,40 @@ myApp.controller('checkoutController', function($scope, $http, $location, $cooki
            $scope.loggedOut = true;
            $scope.loggedIn = false;
          }else{
+         	$scope.username = $cookies.get('username');
          	$scope.loggedOut = false;
          	$scope.loggedIn = true;
          }
      });
 
 	$scope.paymentForm = function(){
-		console.log("PAY");
-	}
+		console.log()
+	var handler = StripeCheckout.configure({
+	   	key: 'pk_test_ts8osad8adqQf9ihzDwGmxrR',
+	   	locale: 'auto',
+	   	token: function(token) {
+			$http.post("http://localhost:3000/checkout", {
+				amount: $scope.totalCharge * 100,
+				stripeToken: token.id					//This will pass amount, stripeToken, and token to /payment
+			}).then(function successCallback(response){
+				if(response.data.success == 'paid'){
+					$location.path('/thankyou');
+				}else{
+					console.log("error");
+				}
+				
+				//if a response of any kind comes back from /payment, it will foward to /thankYou
+				//You can add logic here to determine if the Stripe charge was successful
+			}, function errorCallback(response){
+			});
+	   	}	
+	});			
+    handler.open({
+    	name: 'DC Roasters',
+      	description: 'Coffee Masters',
+      	amount: $scope.totalCharge * 100
+    });		
+};
 
 	$scope.cancelForm = function(){
 		console.log("CANCEL");
