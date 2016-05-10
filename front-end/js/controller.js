@@ -34,7 +34,7 @@ myApp.config(function($routeProvider, $locationProvider){
 
 myApp.controller('myController', function($scope, $http, $location, $cookies, $sce){
 	if(($location.path() != '/') && ($location.path() != '/login') && ($location.path() != '/register')){
-		$http.get("http://localhost:3000/getUserData?username=" + $cookies.get('username') + "&expireTime=" + $cookies.get('expireTime'),{
+		$http.get("http://www.pwmurphy.com:3000/getUserData?username=" + $cookies.get('username') + "&expireTime=" + $cookies.get('expireTime'),{
 		}).then(function successCallback(response){
 			if(response.data.failure == 'noUser' || response.data.failure == 'badUser'){
 				$location.path('/login');
@@ -79,7 +79,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 	 }
 
 	$scope.loginForm = function(){
-		$http.post('http://localhost:3000/login',{
+		$http.post('http://www.pwmurphy.com:3000/login',{
 			username: $scope.username,
 			password: $scope.password
 		}).then(function successCallback(response){
@@ -106,7 +106,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 		if($scope.username==undefined||$scope.password == undefined|| $scope.password2 ==undefined|| $scope.email ==undefined){
 			$scope.errorMessage = "Hi! Please make sure to fill out all the inputs.";
 		}else{
-			$http.post('http://localhost:3000/register', {
+			$http.post('http://www.pwmurphy.com:3000/register', {
 				username: $scope.username,
 				password: $scope.password,
 				password2: $scope.password2,
@@ -145,7 +145,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 			quantity = $scope.quantity + 'lbs';
 			totalCharge = (Number($scope.quantity) * 5) + '.00';
 		}
-		$http.post("http://localhost:3000/options", {
+		$http.post("http://www.pwmurphy.com:3000/options", {
 			token: $cookies.get('token'),
 			plan: planType,
 			grind: $scope.grind,
@@ -169,7 +169,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 		if($scope.fullName == undefined || $scope.address == undefined || $scope.city == undefined || $scope.state == undefined || $scope.zip == undefined){
 			$scope.infoMessage = "Please make sure to fill out all fields";
 		}else{
-			$http.post('http://localhost:3000/delivery', {
+			$http.post('http://www.pwmurphy.com:3000/delivery', {
 				token: $cookies.get('token'),
 				fullName: $scope.fullName,
 				address: $scope.address,
@@ -205,7 +205,7 @@ myApp.controller('myController', function($scope, $http, $location, $cookies, $s
 });
 
 myApp.controller('checkoutController', function($scope, $http, $location, $cookies){
-	$http.get("http://localhost:3000/getUserData?username=" + $cookies.get('username') + "&expireTime=" +$cookies.get('expireTime'),{
+	$http.get("http://www.pwmurphy.com:3000/getUserData?username=" + $cookies.get('username') + "&expireTime=" +$cookies.get('expireTime'),{
 		}).then(function successCallback(response){
 			if(response.data.failure == 'noUser' || response.data.failure == 'badUser'){
 				$location.path('/login');
@@ -260,7 +260,7 @@ myApp.controller('checkoutController', function($scope, $http, $location, $cooki
 	   	key: 'pk_test_ts8osad8adqQf9ihzDwGmxrR',
 	   	locale: 'auto',
 	   	token: function(token) {
-			$http.post("http://localhost:3000/checkout", {
+			$http.post("http://www.pwmurphy.com:3000/checkout", {
 				amount: $scope.totalCharge * 100,
 				stripeToken: token.id					//This will pass amount, stripeToken, and token to /payment
 			}).then(function successCallback(response){
